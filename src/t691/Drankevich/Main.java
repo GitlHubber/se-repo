@@ -1,32 +1,31 @@
-package com.company;
+package SIG.AR;
 
-import java.util.*;
 
 public class Main {
 
-    public static void main(String[] args) {
-    System.out.println("Дiвiться цэ тумагоччi.");
-    System.out.println("Натiснiть 0 щоб творiна померла.");
-    Pet gatchi = new Pet();
-    gatchi.health();
-    Date date = new Date();
-    gatchi.timer.scheduleAtFixedRate(gatchi.task, 1000, 10000);
-    for(;;){
-        System.out.println("Натiснiть 1 щоб покормiтi тварiрну.");
-        System.out.println("Бо 2, каб поiгратi з тварiною.");
-        System.out.println("Чi троiчку, каб поспатi.");
-        Scanner scan = new Scanner(System.in);
-        int press = scan.nextInt();
+    public static void timeLine(long value){
 
-        switch (press){
-            case 0 : System.out.println("Я зробiв суiцiд.");
-                System.exit(0); break;
-            case 1 : gatchi.eat(); break;
-            case 2 : gatchi.game(); break;
-            case 3 : gatchi.sleep(); break;
-            default : System.out.println("Корiстувач ты дэбiл!");
-                gatchi.health(); break;
+        long valueCopy = value;
+        while(valueCopy / 10 != 0){
+            System.out.print("|");
+            valueCopy -= 10;
+        }
+        value = 10 - value / 10;
+        for(int i = 0; i < value; ++i){
+            System.out.print("-");
         }
     }
+    public static void main(String[] args) throws Exception {
+        new Ps().processCommand(args);
+        new MemExample().getInformationsAboutMemory();
+        new SystemMonitor().getSystemStatistics();
+        long cpuLoad = (long)(SystemMonitor.cpuperc.getCombined() * 100);
+        long memUsage = MemExample.uInPer;
+        System.out.print("Cpu load ..... (");
+        timeLine(cpuLoad);
+        System.out.println(") (" + cpuLoad + "%)");
+        System.out.print("Memory usage.. (");
+        timeLine(memUsage);
+        System.out.println(") (" + memUsage + "%)");
     }
 }
